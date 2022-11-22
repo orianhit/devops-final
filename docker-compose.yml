@@ -9,9 +9,16 @@ services:
     volumes:
       - ./jenkins-home:/var/jenkins_home
       - ./tomcat-build:/tmp/tomcat-build
+    networks:
+      - tomcat
   web:
     image: tomcat
     volumes:
       - ./tomcat-build:/usr/local/tomcat/webapps/
     ports:
       - 8182:8080
+    networks:
+      - tomcat
+networks:
+  tomcat:
+    driver: bridge
